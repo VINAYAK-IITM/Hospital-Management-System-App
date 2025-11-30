@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up | HMS{% endblock %}
+
+{% block content %}
+<style>
+    .registration-container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        background-image: url('https://lh3.googleusercontent.com/gg-dl/ABS2GSksFoztuSPCL02S7E4Pjdvvjr3ZGEEWH9dA4rCKdUbigVJGQgmozKgN8z1LH9f7ZDzLRgK_Pfts2embY2modiA15-jW7g_VoOb_ig11raoQ9aqqxOYLmlKCqmLkqAq9el2ZeOevqoSZSjV8kPwIMj_j2R0J8Gk3wRAJJ0Qbe8nNEpbu=s1024-rj');
+    }
+    .registration-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .registration-container label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    .registration-container input[type="text"],
+    .registration-container input[type="email"],
+    .registration-container input[type="password"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    .registration-container button {
+        width: 100%;
+        padding: 10px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .registration-container button:hover {
+        background-color: #218838;
+    }
+</style>
+   
+<div>
+    <div class="registration-container">
+        <h2>Sign Up</h2>
+        <form method="POST" action="{{ url_for('registration') }}">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask import render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
 
@@ -73,6 +74,60 @@ class Treatment(db.Model):
     description = db.Column(db.Text)
 
     appointment = db.relationship("Appointment", back_populates="treatment")
+
+
+# ------------------------ Routes ------------------------ #
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/registration', methods=['GET', 'POST'])
+def registration():
+    if request.method == 'POST':
+        name = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        user = User.query.filter_by(username=name, email=email).first()
+        if user:
+            return redirect(url_for('login'))
+        new_user =User(username=name, email=email, password=password, role='patient')
+        db.session.add(new_user)
+        db.session.commit()
+    return render_template('registration.html')
+
+@app.route('/login')
+def login():
+    if request.method == 'POST':
+        name = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=name, password=password).first()
+        if user:
+            session['user_id'] = user.id
+            session['username'] = user.username
+            session['role'] = user.role
+            if user.role == 'admin':
+                return redirect(url_for('admin_dashboard'))
+            elif user.role == 'doctor':
+                return redirect(url_for('doctor_dashboard'))
+            else:
+                return redirect(url_for('patient_dashboard'))
+        else:
+            return "Invalid credentials"
+    return render_template('login.html')
+
+@app.route('/patient_dashboard')
+def patient_dashboard():
+    return render_template('patient_dashboard.html')
+
+@app.route('/doctor_dashboard')
+def doctor_dashboard():
+    return render_template('doctor_dashboard.html')
+
+@app.route('/admin_dashboard')
+def admin_dashboard():
+    return render_template('admin_dashboard.html')
+
 
 
 # Run App

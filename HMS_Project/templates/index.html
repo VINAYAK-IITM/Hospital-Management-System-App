@@ -1,40 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to our HOSPITAL MANAGEMENT SYSTEM</title>
-</head>
+{% extends "base.html" %}
+{% block title %}Home | HMS{% endblock %}
+
+{% block content %}
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
+    .index-container {
+        text-align: center;
+        margin: 100px auto;
     }
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: #2c3e50;
-        padding: 10px 20px;
+    .index-container h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
     }
-    .logo {
-        color: #ecf0f1;
-        font-size: 24px;
-        font-weight: bold;
-    }
-    .nav-links a {
-        color: #ecf0f1;
-        text-decoration: none;
-        margin-left: 20px;
+    .index-container p {
         font-size: 18px;
-    }
-    .nav-links a:hover {
-        text-decoration: underline;
+        color: #555;
     }
 </style>
 <body>
-    <nav class="navbar">
+    
+
+ <nav class="navbar">
         <div class = "logo"> HOSPITAL MANAGEMENT SYSTEM </div>
         <div class="nav-links">
             <a href="{{url_for('registration')}}"> registration</a>
@@ -46,9 +31,6 @@
         </div>
 
     </nav>
-
-    {% block content %} 
-    {% endblock %}
 
     <footer class = "site footer">
         <style>
@@ -67,4 +49,8 @@
         </p>
     </footer>
 </body>
-</html>
+<div class="index-container">
+    <h1>Welcome to the Hospital Management System</h1>
+    <p>Your health, our priority. Manage your appointments, records, and more with ease.</p>
+</div>
+{% endblock %}
